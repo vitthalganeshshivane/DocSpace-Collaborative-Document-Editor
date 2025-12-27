@@ -1,0 +1,8 @@
+# Force GitHub to detect .ts and .tsx as the primary language
+*.ts linguist-detectable=true
+*.tsx linguist-detectable=true
+
+# Ignore your build/compiled files so they don't count as JS
+dist/* linguist-vendored
+build/* linguist-vendored
+node_modules/* linguist-vendored
