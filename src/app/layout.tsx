@@ -1,19 +1,15 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
+import { Inter } from "next/font/google";
 import "./globals.css";
+import { ConvexClientProvider } from "@/components/convex-client-provider";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const inter = Inter({
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-  title: "DocSpace – Collaborative Document Editor",
+  title: "DocSpace - Collaborative Document Editor",
   description:
     "DocSpace is a modern collaborative document editor built with Next.js and TypeScript, inspired by Google Docs.",
 };
@@ -25,10 +21,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+      <body className={inter.className}>
+        <NuqsAdapter>
+          <ConvexClientProvider>{children}</ConvexClientProvider>
+        </NuqsAdapter>
       </body>
     </html>
   );
