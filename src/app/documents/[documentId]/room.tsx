@@ -74,9 +74,13 @@ export function Room({ children }: { children: ReactNode }) {
       resolveRoomsInfo={async ({ roomIds }) => {
         const documents = await getDocuments(roomIds as Id<"documents">[]);
 
+        // return documents.map((document) => ({
+        //   id: document.id,
+        //   name: document.name,
+        // }));
         return documents.map((document) => ({
-          id: document.id,
-          name: document.name,
+          id: document._id,
+          name: document.title,
         }));
       }}
     >
