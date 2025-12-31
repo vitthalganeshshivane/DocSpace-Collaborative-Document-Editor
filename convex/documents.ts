@@ -1,23 +1,40 @@
 import { ConvexError, v } from "convex/values";
 import { mutation, query } from "./_generated/server";
 import { paginationOptsValidator } from "convex/server";
+import { Doc } from "./_generated/dataModel";
 
 export const getByIds = query({
   args: { ids: v.array(v.id("documents")) },
   handler: async (ctx, { ids }) => {
-    const documents = [];
+    const documents: Doc<"documents">[] = [];
 
     for (const id of ids) {
       const document = await ctx.db.get(id);
       if (document) {
-        document.push({ id: document._id, name: document.title });
-      } else {
-        document.push({ id, name: "[Removed]" });
+        documents.push(document);
       }
     }
+
     return documents;
   },
 });
+
+// export const getByIds = query({
+//   args: { ids: v.array(v.id("documents")) },
+//   handler: async (ctx, { ids }) => {
+//     const documents = [];
+
+//     for (const id of ids) {
+//       const document = await ctx.db.get(id);
+//       if (document) {
+//         document.push({ id: document._id, name: document.title });
+//       } else {
+//         document.push({ id, name: "[Removed]" });
+//       }
+//     }
+//     return documents;
+//   },
+// });
 
 export const create = mutation({
   args: {
